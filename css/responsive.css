@@ -5,7 +5,6 @@
 @media (max-width: 1024px) {
   .container { padding: 0 32px; }
   .hero::after { display: none; }
-  .hero { overflow: hidden; }
   .hero-layout { grid-template-columns: 1fr; gap: 48px; }
   .hero-photo { justify-content: center; order: -1; }
   .hero-photo img { max-width: 300px; }
@@ -85,6 +84,7 @@
   .expertise-grid { grid-template-columns: 1fr; }
   .projects-grid { grid-template-columns: 1fr; }
   .hero-metrics { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .hero { min-height: auto; padding: 120px 0 60px; }
   .hero-status-bar { display: none; }
   .hero-photo { order: -1; }
   .hero-photo img { max-width: 240px; border-radius: 16px; }

@@ -49,17 +49,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     e.preventDefault();
     const t = document.querySelector(a.getAttribute('href'));
     if (t) t.scrollIntoView({ behavior: 'smooth' });
-    navMenu.classList.remove('open');
-    mobileMenuBtn.textContent = 'menu';
   });
-});
-
-// Mobile menu
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const navMenu = document.getElementById('navMenu');
-mobileMenuBtn.addEventListener('click', () => {
-  const isOpen = navMenu.classList.toggle('open');
-  mobileMenuBtn.textContent = isOpen ? 'close' : 'menu';
 });
 
 // Expertise tiles
@@ -113,13 +103,6 @@ document.querySelectorAll('.tl-entry').forEach(entry => {
   });
 });
 
-// Close mobile menu on resize to desktop
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 720) {
-    navMenu.classList.remove('open');
-    mobileMenuBtn.textContent = 'menu';
-  }
-});
 
 // Dynamic footer year
 (function() {

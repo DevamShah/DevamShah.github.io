@@ -101,7 +101,6 @@
     font-size: 14px;
     max-width: 100%;
     line-height: 1.7;
-    text-align: left;
   }
   /* Hide terminal + status bar + ticker on mobile — too much noise */
   .hero-terminal { display: none; }

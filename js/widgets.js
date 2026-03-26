@@ -40,10 +40,12 @@
 
 // ===== READING TIME =====
 (function () {
+  const el = document.getElementById('readingTime');
+  if (!el) return;
   const text = document.body.innerText;
   const words = text.split(/\s+/).length;
   const mins = Math.ceil(words / 200);
-  document.getElementById('readingTime').textContent = `~ ${mins} min read`;
+  el.textContent = `~ ${mins} min read`;
 })();
 
 // ===== KEYBOARD SHORTCUTS =====

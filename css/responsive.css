@@ -34,23 +34,7 @@
   .nav-id { font-size: 11px; }
   .nav-id span[style] { display: none; }
 
-  /* Unjustify text on mobile — prevents whitespace rivers */
-  .hero-desc,
-  .about-card p,
-  .about-philosophy,
-  .tl-desc,
-  .proj-card > p,
-  .section-sub,
-  .chat-bubble,
-  .oss-cta p,
-  .exp-tile p,
-  .contact-sub,
-  .cred-item {
-    text-align: left;
-    hyphens: none;
-    -webkit-hyphens: none;
-    word-spacing: normal;
-  }
+  /* Keep text justified on mobile — same as desktop */
 
   .trust-bar { padding: 32px 0; }
   .trust-bar-items { gap: 8px; }
@@ -65,21 +49,18 @@
 
   .tl-entry.featured .tl-role { font-size: 18px; }
 
+  /* Hide mobile menu button — show nav inline */
+  .mobile-menu-btn { display: none !important; }
   nav ul {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(7, 11, 23, 0.98);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    z-index: 9999;
-    backdrop-filter: blur(20px);
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 4px;
+    scrollbar-width: none;
   }
-  nav ul.open { display: flex; }
-  nav ul a { font-size: 16px; padding: 14px 28px; }
-  .mobile-menu-btn { display: block; z-index: 10000; position: relative; }
+  nav ul::-webkit-scrollbar { display: none; }
+  nav ul a { font-size: 10px; padding: 5px 10px; white-space: nowrap; }
 
   .expertise-grid { grid-template-columns: 1fr; }
   .projects-grid { grid-template-columns: 1fr; }

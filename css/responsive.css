@@ -21,6 +21,18 @@
   html { scroll-snap-type: none; }
   .container { padding: 0 20px; }
 
+  /* Prevent horizontal overflow */
+  .hero::after { display: none; }
+  .hero-terminal { overflow-x: auto; white-space: normal; word-break: break-word; }
+  .term-line { white-space: normal; word-break: break-word; }
+  .hero-eyebrow { flex-wrap: wrap; font-size: 9px; letter-spacing: .12em; }
+  .hero-status-bar { overflow: hidden; }
+  .panel-body-horizontal { overflow-x: auto; }
+  .epoch-row { overflow: hidden; }
+  .epoch-fixed { overflow: hidden; text-overflow: ellipsis; }
+  .nav-id { font-size: 11px; }
+  .nav-id span[style] { display: none; }
+
   /* Unjustify text on mobile — prevents whitespace rivers */
   .hero-desc,
   .about-card p,

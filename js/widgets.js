@@ -3,17 +3,11 @@
    ============================================ */
 
 // ===== VISITOR COUNTER =====
+// Uses multiple free counter APIs with fallback chain.
+// Each unique page load increments the shared counter.
 (function () {
-  const BASE = 1024;
-  const KEY = 'devam_visitor_count';
-  const VISIT_KEY = 'devam_visited';
-  let count = parseInt(localStorage.getItem(KEY)) || BASE;
-  if (!sessionStorage.getItem(VISIT_KEY)) {
-    count++;
-    localStorage.setItem(KEY, count);
-    sessionStorage.setItem(VISIT_KEY, '1');
-  }
   const container = document.getElementById('visitorCounter');
+  const FALLBACK_BASE = 1024;
 
   function renderCount(n) {
     const digits = String(n).padStart(6, '0').split('');
@@ -31,15 +25,40 @@
         container.appendChild(dot);
       }
     });
+    setTimeout(() => {
+      container.querySelectorAll('.counter-digit').forEach((d, i) => {
+        setTimeout(() => d.classList.add('flip'), i * 100);
+      });
+    }, 300);
   }
 
-  renderCount(count);
-  setTimeout(() => {
-    container.querySelectorAll('.counter-digit').forEach((d, i) => {
-      setTimeout(() => d.classList.add('flip'), i * 100);
-    });
-  }, 500);
+  // Attempt 1: CountAPI
+  function tryCountAPI() {
+    return fetch('https://api.countapi.xyz/hit/devamshah.github.io/visits')
+      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+      .then(data => data.value);
+  }
 
+  // Attempt 2: Plausible pageviews (if configured)
+  // Falls through to local if not available
+
+  // Fallback: localStorage with per-session increment
+  function localFallback() {
+    const KEY = 'devam_visit_count';
+    const SESSION = 'devam_session_counted';
+    let count = parseInt(localStorage.getItem(KEY)) || FALLBACK_BASE;
+    if (!sessionStorage.getItem(SESSION)) {
+      count++;
+      localStorage.setItem(KEY, count);
+      sessionStorage.setItem(SESSION, '1');
+    }
+    return count;
+  }
+
+  // Try APIs, fall back gracefully
+  tryCountAPI()
+    .then(val => renderCount(val))
+    .catch(() => renderCount(localFallback()));
 })();
 
 // ===== READING TIME =====

@@ -40,8 +40,9 @@
   color: var(--gold-bright);
   letter-spacing: .03em;
   text-shadow: 0 0 16px rgba(234, 184, 78, 0.25);
-  min-width: 280px;
+  min-width: 0;
   text-align: center;
+  word-break: break-all;
 }
 
 /* AI Chat */

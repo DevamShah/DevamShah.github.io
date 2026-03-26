@@ -4,6 +4,8 @@
 
 @media (max-width: 1024px) {
   .container { padding: 0 32px; }
+  .hero::after { display: none; }
+  .hero { overflow: hidden; }
   .hero-layout { grid-template-columns: 1fr; gap: 48px; }
   .hero-photo { justify-content: center; order: -1; }
   .hero-photo img { max-width: 300px; }

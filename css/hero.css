@@ -9,6 +9,7 @@
   align-items: center;
   position: relative;
   padding: 140px 0 100px;
+  overflow: hidden;
 }
 
 .hero-grid-bg {

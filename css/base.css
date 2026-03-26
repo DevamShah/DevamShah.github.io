@@ -41,11 +41,16 @@
   box-sizing: border-box;
 }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-snap-type: y proximity;
   scroll-padding-top: 75px;
-  overflow-x: hidden;
 }
 
 body {
@@ -58,8 +63,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
-  overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
+  position: relative;
 }
 
 ::selection {
@@ -107,7 +112,8 @@ body::after {
 }
 
 /* Global overflow prevention */
-section, header, footer, .container { max-width: 100vw; }
+section, header, footer { overflow-x: hidden; max-width: 100%; }
+.container { max-width: 1160px; overflow-x: hidden; }
 
 /* Snap scrolling */
 .snap-section { scroll-snap-align: start; scroll-snap-stop: normal; }

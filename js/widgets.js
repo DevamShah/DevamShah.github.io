@@ -3,62 +3,39 @@
    ============================================ */
 
 // ===== VISITOR COUNTER =====
-// Uses multiple free counter APIs with fallback chain.
-// Each unique page load increments the shared counter.
+// Increments on EVERY page load (not unique — total hits).
+// Uses localStorage as persistent store. Each refresh = +1.
 (function () {
   const container = document.getElementById('visitorCounter');
-  const FALLBACK_BASE = 1024;
+  const KEY = 'devam_total_hits';
+  const BASE = 1024;
 
-  function renderCount(n) {
-    const digits = String(n).padStart(6, '0').split('');
-    container.innerHTML = '';
-    digits.forEach((d, i) => {
-      const span = document.createElement('span');
-      span.className = 'counter-digit';
-      span.textContent = d;
-      span.style.animationDelay = (i * 0.08) + 's';
-      container.appendChild(span);
-      if (i === 2) {
-        const dot = document.createElement('span');
-        dot.className = 'counter-dot';
-        dot.textContent = '\u25CF';
-        container.appendChild(dot);
-      }
-    });
-    setTimeout(() => {
-      container.querySelectorAll('.counter-digit').forEach((d, i) => {
-        setTimeout(() => d.classList.add('flip'), i * 100);
-      });
-    }, 300);
-  }
+  // Increment on every single page load
+  let count = parseInt(localStorage.getItem(KEY)) || BASE;
+  count++;
+  localStorage.setItem(KEY, count);
 
-  // Attempt 1: CountAPI
-  function tryCountAPI() {
-    return fetch('https://api.countapi.xyz/hit/devamshah.github.io/visits')
-      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
-      .then(data => data.value);
-  }
-
-  // Attempt 2: Plausible pageviews (if configured)
-  // Falls through to local if not available
-
-  // Fallback: localStorage with per-session increment
-  function localFallback() {
-    const KEY = 'devam_visit_count';
-    const SESSION = 'devam_session_counted';
-    let count = parseInt(localStorage.getItem(KEY)) || FALLBACK_BASE;
-    if (!sessionStorage.getItem(SESSION)) {
-      count++;
-      localStorage.setItem(KEY, count);
-      sessionStorage.setItem(SESSION, '1');
+  // Render the flip counter
+  const digits = String(count).padStart(6, '0').split('');
+  digits.forEach((d, i) => {
+    const span = document.createElement('span');
+    span.className = 'counter-digit';
+    span.textContent = d;
+    container.appendChild(span);
+    if (i === 2) {
+      const dot = document.createElement('span');
+      dot.className = 'counter-dot';
+      dot.textContent = '\u25CF';
+      container.appendChild(dot);
     }
-    return count;
-  }
+  });
 
-  // Try APIs, fall back gracefully
-  tryCountAPI()
-    .then(val => renderCount(val))
-    .catch(() => renderCount(localFallback()));
+  // Flip animation on load
+  setTimeout(() => {
+    container.querySelectorAll('.counter-digit').forEach((d, i) => {
+      setTimeout(() => d.classList.add('flip'), i * 100);
+    });
+  }, 300);
 })();
 
 // ===== READING TIME =====

@@ -3,39 +3,50 @@
    ============================================ */
 
 // ===== VISITOR COUNTER =====
-// Increments on EVERY page load (not unique — total hits).
-// Uses localStorage as persistent store. Each refresh = +1.
+// Server-side counter via hits.dwyl.com — shared across all devices.
+// Increments once per unique page load (server decides uniqueness).
 (function () {
   const container = document.getElementById('visitorCounter');
-  const KEY = 'devam_total_hits';
-  const BASE = 1024;
+  if (!container) return;
 
-  // Increment on every single page load
-  let count = parseInt(localStorage.getItem(KEY)) || BASE;
-  count++;
-  localStorage.setItem(KEY, count);
-
-  // Render the flip counter
-  const digits = String(count).padStart(6, '0').split('');
-  digits.forEach((d, i) => {
-    const span = document.createElement('span');
-    span.className = 'counter-digit';
-    span.textContent = d;
-    container.appendChild(span);
-    if (i === 2) {
-      const dot = document.createElement('span');
-      dot.className = 'counter-dot';
-      dot.textContent = '\u25CF';
-      container.appendChild(dot);
-    }
-  });
-
-  // Flip animation on load
-  setTimeout(() => {
-    container.querySelectorAll('.counter-digit').forEach((d, i) => {
-      setTimeout(() => d.classList.add('flip'), i * 100);
+  function renderCount(n) {
+    container.innerHTML = '';
+    const digits = String(n).padStart(6, '0').split('');
+    digits.forEach((d, i) => {
+      const span = document.createElement('span');
+      span.className = 'counter-digit';
+      span.textContent = d;
+      container.appendChild(span);
+      if (i === 2) {
+        const dot = document.createElement('span');
+        dot.className = 'counter-dot';
+        dot.textContent = '\u25CF';
+        container.appendChild(dot);
+      }
     });
-  }, 300);
+    setTimeout(() => {
+      container.querySelectorAll('.counter-digit').forEach((d, i) => {
+        setTimeout(() => d.classList.add('flip'), i * 100);
+      });
+    }, 300);
+  }
+
+  // Show loading state
+  renderCount(0);
+
+  // Fetch real server-side count
+  fetch('https://hits.dwyl.com/DevamShah/DevamShah.github.io.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var count = (parseInt(data.message) || 0) + 1024;
+      localStorage.setItem('devam_server_count', count);
+      renderCount(count);
+    })
+    .catch(function() {
+      // If API fails, show cached count from localStorage
+      var cached = parseInt(localStorage.getItem('devam_server_count')) || 1024;
+      renderCount(cached);
+    });
 })();
 
 // ===== READING TIME =====

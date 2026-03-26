@@ -1,0 +1,73 @@
+/* ============================================
+   EXPERTISE — Tiles and Tags
+   ============================================ */
+
+.expertise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+.exp-tile {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  position: relative;
+  transition: all .35s;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.exp-tile::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 2.5px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-dim));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s;
+}
+.exp-tile:hover, .exp-tile.active { border-color: var(--gold-border); background: var(--bg-card-hover); }
+.exp-tile:hover::before, .exp-tile.active::before { transform: scaleX(1); }
+.exp-tile.active { box-shadow: 0 0 0 1px var(--gold-border), 0 4px 12px rgba(0, 0, 0, 0.1), 0 8px 32px rgba(0, 0, 0, 0.2); }
+.exp-tile:focus-visible {
+  outline: none;
+  border-color: rgba(212, 162, 76, 0.35);
+  box-shadow: 0 0 0 2px rgba(212, 162, 76, 0.3);
+}
+
+.exp-icon-wrap {
+  width: 44px; height: 44px;
+  background: var(--gold-glow);
+  border: 1px solid var(--gold-border);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 22px;
+  color: var(--gold-bright);
+  font-size: 18px;
+}
+.exp-icon-wrap svg { width: 20px; height: 20px; }
+
+.exp-tile h3 { font-size: 17px; font-weight: 600; margin-bottom: 12px; }
+.exp-tile p { font-size: 13.5px; color: var(--text-body); line-height: 1.75; font-weight: 300; margin-bottom: 20px; }
+
+.exp-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.exp-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .04em;
+  padding: 4px 10px;
+  background: var(--gold-tag);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 4px;
+  transition: all .25s;
+  cursor: default;
+}
+.exp-tag:hover,
+.exp-tile.active .exp-tag {
+  color: var(--gold-bright);
+  border-color: var(--gold-border);
+  background: var(--gold-glow-s);
+  box-shadow: 0 0 12px rgba(212, 162, 76, 0.15);
+  transform: translateY(-1px);
+}

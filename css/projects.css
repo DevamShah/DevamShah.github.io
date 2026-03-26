@@ -1,0 +1,126 @@
+/* ============================================
+   PROJECTS — Cards, Status, OSS CTA
+   ============================================ */
+
+.projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.proj-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all .35s ease;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.proj-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 2.5px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-dim));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s;
+}
+.proj-card:hover, .proj-card.active {
+  border-color: rgba(212, 162, 76, 0.2);
+  background: var(--bg-card-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(212, 162, 76, 0.1);
+}
+.proj-card:hover::before, .proj-card.active::before { transform: scaleX(1); }
+.proj-card.active {
+  border-color: rgba(212, 162, 76, 0.35);
+  box-shadow: 0 0 0 1px rgba(212, 162, 76, 0.2), 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 60px rgba(212, 162, 76, 0.06);
+}
+.proj-card:focus-visible {
+  outline: none;
+  border-color: rgba(212, 162, 76, 0.35);
+  box-shadow: 0 0 0 2px rgba(212, 162, 76, 0.3);
+}
+/* Status dot pulse on hover */
+.proj-card:hover .proj-status .sdot { animation: dotPulse .4s ease; }
+@keyframes dotPulse { 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+/* Tags brighten on card hover */
+.proj-card:hover .proj-stack span, .proj-card.active .proj-stack span {
+  color: var(--gold);
+  border-color: var(--gold-border);
+}
+
+/* Status badges */
+.proj-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  padding: 5px 12px;
+  border-radius: 5px;
+  margin-bottom: 22px;
+}
+.proj-status .sdot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.proj-status.active { color: var(--green); border: 1px solid rgba(52, 211, 153, 0.25); background: var(--green-dim); }
+.proj-status.ready  { color: var(--gold); border: 1px solid var(--gold-border); background: var(--gold-glow); }
+.proj-status.shipped { color: var(--blue); border: 1px solid rgba(96, 165, 250, 0.2); background: var(--blue-dim); }
+.proj-status.meta   { color: var(--slate); border: 1px solid rgba(148, 163, 184, 0.15); background: rgba(255, 255, 255, 0.03); }
+
+.proj-card h3 { font-family: var(--serif); font-size: 28px; font-weight: 400; margin-bottom: 6px; }
+.proj-tagline { font-family: var(--mono); font-size: 11.5px; color: var(--gold-dim); margin-bottom: 16px; font-style: italic; }
+.proj-card > p { font-size: 14px; color: var(--text-body); line-height: 1.8; font-weight: 300; margin-bottom: 22px; }
+
+.proj-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+.proj-stack span {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  background: var(--gold-tag);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: all .25s;
+}
+.proj-stack span:hover { color: var(--gold-bright); border-color: var(--gold-border); background: var(--gold-glow-s); }
+
+/* OSS CTA */
+.oss-cta {
+  margin-top: 56px;
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(212, 162, 76, 0.04) 100%);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius);
+  padding: 40px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  transition: all .35s ease;
+}
+.oss-cta:hover {
+  border-color: rgba(212, 162, 76, 0.35);
+  background: linear-gradient(135deg, var(--bg-card-hover) 0%, rgba(212, 162, 76, 0.06) 100%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+.oss-cta:hover .oss-btn { background: var(--gold); color: var(--bg-deep); }
+.oss-cta h3 { font-family: var(--serif); font-size: 26px; margin-bottom: 8px; }
+.oss-cta p { color: var(--text-body); font-size: 14.5px; font-weight: 300; }
+.oss-btn {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  padding: 13px 30px;
+  border-radius: 6px;
+  transition: all .25s;
+}
+.oss-btn:hover { background: var(--gold); color: var(--bg-deep); }

@@ -3,50 +3,68 @@
    ============================================ */
 
 // ===== VISITOR COUNTER =====
-// Server-side counter via hits.dwyl.com — shared across all devices.
-// Increments once per unique page load (server decides uniqueness).
+// Server-side tracking via hits.dwyl.com (hidden image — bypasses CORS).
+// Display uses fetch with no-cors mode to trigger hit + localStorage for display.
+// Increments only on hard refresh (navigation, not soft refresh via cache).
 (function () {
-  const container = document.getElementById('visitorCounter');
+  var container = document.getElementById('visitorCounter');
   if (!container) return;
+  var BASE = 1024;
+  var KEY = 'devam_hit_count';
+  var LAST_NAV = 'devam_last_nav_type';
 
   function renderCount(n) {
     container.innerHTML = '';
-    const digits = String(n).padStart(6, '0').split('');
-    digits.forEach((d, i) => {
-      const span = document.createElement('span');
+    var digits = String(n).padStart(6, '0').split('');
+    digits.forEach(function(d, i) {
+      var span = document.createElement('span');
       span.className = 'counter-digit';
       span.textContent = d;
       container.appendChild(span);
       if (i === 2) {
-        const dot = document.createElement('span');
+        var dot = document.createElement('span');
         dot.className = 'counter-dot';
         dot.textContent = '\u25CF';
         container.appendChild(dot);
       }
     });
-    setTimeout(() => {
-      container.querySelectorAll('.counter-digit').forEach((d, i) => {
-        setTimeout(() => d.classList.add('flip'), i * 100);
-      });
+    setTimeout(function() {
+      var allDigits = container.querySelectorAll('.counter-digit');
+      for (var i = 0; i < allDigits.length; i++) {
+        (function(idx) {
+          setTimeout(function() { allDigits[idx].classList.add('flip'); }, idx * 100);
+        })(i);
+      }
     }, 300);
   }
 
-  // Show loading state
-  renderCount(0);
+  // Detect if this is a hard refresh / new navigation (not soft refresh / back-forward cache)
+  var isHardLoad = true;
+  if (window.performance && window.performance.navigation) {
+    // type 0 = navigate, 1 = reload, 2 = back/forward
+    isHardLoad = (window.performance.navigation.type <= 1);
+  }
+  if (window.performance && window.performance.getEntriesByType) {
+    var navEntry = window.performance.getEntriesByType('navigation')[0];
+    if (navEntry) {
+      // 'navigate' = new visit, 'reload' = hard refresh — both count
+      // 'back_forward' = browser cache — don't count
+      isHardLoad = (navEntry.type === 'navigate' || navEntry.type === 'reload');
+    }
+  }
 
-  // Fetch real server-side count
-  fetch('https://hits.dwyl.com/DevamShah/DevamShah.github.io.json')
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      var count = (parseInt(data.message) || 0) + 1024;
-      localStorage.setItem('devam_server_count', count);
-      renderCount(count);
-    })
-    .catch(function() {
-      // If API fails, show cached count from localStorage
-      var cached = parseInt(localStorage.getItem('devam_server_count')) || 1024;
-      renderCount(cached);
-    });
+  var count = parseInt(localStorage.getItem(KEY)) || BASE;
+
+  if (isHardLoad) {
+    count++;
+    localStorage.setItem(KEY, count);
+
+    // Also ping server-side counter (fire and forget — image always works)
+    var img = new Image();
+    img.src = 'https://hits.dwyl.com/DevamShah/DevamShah.github.io.svg?' + Date.now();
+  }
+
+  renderCount(count);
 })();
 
 // ===== READING TIME =====

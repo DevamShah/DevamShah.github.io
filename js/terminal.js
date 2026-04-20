@@ -3,12 +3,13 @@
    ============================================ */
 
 (function () {
-  const lines = document.querySelectorAll('#heroTerm .term-line');
-  lines.forEach((line, i) => {
-    line.style.transition = 'opacity .45s ease, transform .45s ease';
-    setTimeout(() => {
+  'use strict';
+  var lines = document.querySelectorAll('#heroTerm .term-line');
+  lines.forEach(function (line, i) {
+    line.style.transition = 'opacity .3s ease, transform .3s ease';
+    setTimeout(function () {
       line.style.opacity = '1';
       line.style.transform = 'translateX(0)';
-    }, 350 + i * 280);
+    }, 120 + i * 100);
   });
 })();

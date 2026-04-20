@@ -13,10 +13,10 @@
       var suffix = el.dataset.suffix || '';
       var labelEl = el.closest('.metric');
       var label = labelEl ? labelEl.querySelector('.metric-label') : null;
-      var stagger = idx * 250;
-      var scrambleDuration = 400;
-      var countDuration = 1800;
-      var suffixDelay = 120;
+      var stagger = idx * 100;
+      var scrambleDuration = 150;
+      var countDuration = 800;
+      var suffixDelay = 40;
 
       el.classList.add('counting');
       el.textContent = '0';

@@ -1,4 +1,17 @@
 User-agent: *
 Allow: /
+Disallow: /assets/devam.png
+
+# AI crawlers welcome — this is a public professional portfolio
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
 
 Sitemap: https://devamshah.github.io/sitemap.xml

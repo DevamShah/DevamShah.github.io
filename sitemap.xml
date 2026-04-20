@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/0.9">
   <url>
     <loc>https://devamshah.github.io/</loc>
-    <lastmod>2026-03-27</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://devamshah.github.io/assets/og-card.png</image:loc>
+      <image:title>Dr. Devam R Shah — CISO &amp; AI Security Leader</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://devamshah.github.io/assets/website_headshot.png</image:loc>
+      <image:title>Dr. Devam R Shah — Portrait</image:title>
+    </image:image>
   </url>
 </urlset>

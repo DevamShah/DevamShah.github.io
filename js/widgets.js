@@ -13,7 +13,7 @@ document.addEventListener('keydown', e => {
   if (key === '?') { shortcutsModal.classList.toggle('open'); return; }
   if (shortcutsModal.classList.contains('open')) { if (key === 'escape') shortcutsModal.classList.remove('open'); return; }
   if (key === 'escape') { document.getElementById('lightbox').classList.remove('open'); return; }
-  const map = { h: '#hero', a: '#about', e: '#expertise', c: '#career', p: '#projects', k: '#contact' };
+  const map = { h: '#hero', a: '#ai-security-leader', e: '#ai-security-expertise', c: '#ai-security-experience', p: '#ai-security-projects', k: '#ai-security-contact' };
   if (map[key]) {
     const el = document.querySelector(map[key]);
     if (el) el.scrollIntoView({ behavior: 'smooth' });

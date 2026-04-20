@@ -70,10 +70,16 @@
 
   var metricsEl = document.querySelector('.hero-metrics');
   if (!metricsEl) return;
+
+  var fired = false;
+  function fire() { if (fired) return; fired = true; animateCounters(); }
+
   var counterObs = new IntersectionObserver(function (e) {
     e.forEach(function (x) {
-      if (x.isIntersecting) { animateCounters(); counterObs.unobserve(x.target); }
+      if (x.isIntersecting) { fire(); counterObs.unobserve(x.target); }
     });
   }, { threshold: 0.3 });
   counterObs.observe(metricsEl);
+
+  setTimeout(fire, 1500);
 })();

@@ -193,10 +193,13 @@ footer p {
   background: var(--gold);
   color: var(--bg-deep);
   border: 1px solid var(--gold);
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 28px;
+  box-shadow: 0 4px 18px rgba(234, 184, 78, 0.25);
 }
-.c-btn.primary:hover { background: var(--gold-dim); border-color: var(--gold-dim); }
-.c-btn.ghost { color: var(--text-muted); border: 1px solid var(--border-card); }
+.c-btn.primary:hover { background: var(--gold-dim); border-color: var(--gold-dim); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(234, 184, 78, 0.35); }
+.c-btn.ghost { color: var(--text-muted); border: 1px solid var(--border-card); font-weight: 400; }
 .c-btn.ghost:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-glow); }
 
 /* ===== TRUST BAR ===== */

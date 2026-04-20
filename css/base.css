@@ -1,6 +1,15 @@
-/* ============================================
-   BASE — Variables, Reset, Typography, Retina
-   ============================================ */
+/* BASE — Variables, Reset, Typography, Retina */
+
+/* Visually hidden (WCAG) — preserves screen reader access */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 :root {
   --bg-deep: #070b17;
@@ -155,11 +164,9 @@ section {
 .exp-tile p,
 .contact-sub,
 .cred-item {
-  text-align: justify;
-  text-align-last: left;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  word-spacing: -0.5px;
+  text-align: left;
+  hyphens: manual;
+  -webkit-hyphens: manual;
   overflow-wrap: break-word;
 }
 

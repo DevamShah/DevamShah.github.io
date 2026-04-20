@@ -94,10 +94,9 @@
   max-width: 580px;
   line-height: 1.85;
   font-weight: 300;
-  text-align: justify;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  word-spacing: -0.5px;
+  text-align: left;
+  hyphens: manual;
+  -webkit-hyphens: manual;
   overflow-wrap: break-word;
 }
 .hero-desc strong { color: var(--text-h); font-weight: 500; }

@@ -1,30 +1,31 @@
-/* ============================================
-   CLOCK — Epoch timer + live clock
-   ============================================ */
+/* CLOCK — Epoch timer + live clock */
+(function () {
+  'use strict';
 
-function updateClock() {
-  const start = new Date(2015, 6, 1); // July 2015
-  const now = new Date();
-  const diff = now - start;
-  const totalSec = Math.floor(diff / 1000);
+  var yearsEl = document.getElementById('clockYears');
+  var monthsEl = document.getElementById('clockMonths');
+  var daysEl = document.getElementById('clockDays');
+  var secsEl = document.getElementById('clockSecs');
+  var epochEl = document.getElementById('epochNow');
+  if (!yearsEl) return;
 
-  let years = now.getFullYear() - start.getFullYear();
-  let months = now.getMonth() - start.getMonth();
-  let days = now.getDate() - start.getDate();
-  if (days < 0) { months--; days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
-  if (months < 0) { years--; months += 12; }
+  function updateClock() {
+    var start = new Date(2015, 6, 1);
+    var now = new Date();
+    var years = now.getFullYear() - start.getFullYear();
+    var months = now.getMonth() - start.getMonth();
+    var days = now.getDate() - start.getDate();
+    if (days < 0) { months--; days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
+    if (months < 0) { years--; months += 12; }
+    var secsToday = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
 
-  const secsToday = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+    yearsEl.textContent = years;
+    monthsEl.textContent = months;
+    daysEl.textContent = days;
+    secsEl.textContent = secsToday.toLocaleString();
+    if (epochEl) epochEl.textContent = Math.floor(now.getTime() / 1000).toLocaleString();
+  }
 
-  document.getElementById('clockYears').textContent = years;
-  document.getElementById('clockMonths').textContent = months;
-  document.getElementById('clockDays').textContent = days;
-  document.getElementById('clockSecs').textContent = secsToday.toLocaleString();
-
-  // Epoch — live now
-  const nowEpoch = Math.floor(now.getTime() / 1000);
-  document.getElementById('epochNow').textContent = nowEpoch.toLocaleString();
-}
-
-updateClock();
-setInterval(updateClock, 1000);
+  updateClock();
+  setInterval(updateClock, 1000);
+})();

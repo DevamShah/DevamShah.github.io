@@ -15,12 +15,14 @@ Please include:
 
 ## Security Measures in Place
 
-- **XSS Protection:** All user input (chat widget) is sanitized via `escapeHTML()` before DOM insertion
-- **No Inline Scripts:** All JavaScript is in external files with `defer` attribute
-- **Content Security Policy:** Ready for CSP headers (no inline JS/CSS dependencies)
-- **No Server-Side Code:** Static site — no database, no API keys, no server vulnerabilities
-- **Dependency-Free:** No npm packages, no third-party JS libraries
-- **HTTPS Only:** Served via GitHub Pages with enforced HTTPS
+- **XSS Protection:** User input in the chat widget is rendered via `textContent` / text nodes only; no `innerHTML` for any user-controlled data.
+- **No Inline Scripts:** All JavaScript is in external files with `defer` attribute, wrapped in IIFEs to prevent global leakage.
+- **Content Security Policy:** Meta CSP enforced in `<head>` — `default-src 'self'`, third-party scripts whitelisted explicitly (Plausible only).
+- **Referrer-Policy:** `strict-origin-when-cross-origin`.
+- **X-Content-Type-Options:** `nosniff`.
+- **No Server-Side Code:** Static site — no database, no API keys, no server vulnerabilities.
+- **Dependency-Free:** No npm packages, no third-party JS libraries (analytics via Plausible CDN).
+- **HTTPS Only:** Served via GitHub Pages with enforced HTTPS.
 
 ## Scope
 

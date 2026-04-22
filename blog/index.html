@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
+  <meta name="theme-color" content="#070b17">
+  <meta name="color-scheme" content="dark">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://plausible.io; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://plausible.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <title>Blog — Dr. Devam R Shah | AI Security & Governance</title>
+  <meta name="description" content="Thoughts on AI security, LLM defense, AI governance, board-level cyber risk, and building security tools in the open — by Dr. Devam R Shah, CISO & DPO.">
+  <meta name="author" content="Dr. Devam R Shah">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://devamshah.github.io/blog/">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23eab84e'/%3E%3Cstop offset='1' stop-color='%23a37d38'/%3E%3C/linearGradient%3E%3ClinearGradient id='h' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.12'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%230a0f22'/%3E%3Cpath d='M32 6L12 16v16c0 14 8.5 22.5 20 26c11.5-3.5 20-12 20-26V16Z' fill='url(%23g)'/%3E%3Cpath d='M32 6L12 16v16c0 14 8.5 22.5 20 26c11.5-3.5 20-12 20-26V16Z' fill='url(%23h)'/%3E%3Cpath d='M24 20h10c7 0 12 5 12 12s-5 12-12 12H24Z' fill='%230a0f22'/%3E%3Cpath d='M30 26h4c3.3 0 6 2.7 6 6s-2.7 6-6 6h-4Z' fill='url(%23g)'/%3E%3C/svg%3E">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Dr. Devam R Shah">
+  <meta property="og:url" content="https://devamshah.github.io/blog/">
+  <meta property="og:title" content="Blog — Dr. Devam R Shah | AI Security & Governance">
+  <meta property="og:description" content="Thoughts on AI security, LLM defense, AI governance, and building security tools in the open.">
+  <meta property="og:image" content="https://devamshah.github.io/assets/og-card.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog — Dr. Devam R Shah | AI Security & Governance">
+  <meta name="twitter:description" content="Thoughts on AI security, LLM defense, AI governance, and building security tools in the open.">
+  <meta name="twitter:image" content="https://devamshah.github.io/assets/og-card.png">
+
+  <!-- Analytics -->
+  <script defer data-domain="devamshah.github.io" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Preload critical fonts -->
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/outfit-var.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../fonts/instrument-serif.woff2" crossorigin>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/bundle.min.css">
+  <link rel="stylesheet" href="blog-post.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- ===== HEADER ===== -->
+<header id="siteHeader">
+  <div class="container">
+    <a href="/" class="nav-brand">
+      <div class="nav-dot"></div>
+      <div class="nav-id">
+        <span class="slash">~/</span>dr.devam.r<span class="dot">.</span>shah
+        <span style="color:var(--text-muted);font-size:10px;margin-left:6px">chief information security officer &middot; ai security &amp; governance</span>
+      </div>
+    </a>
+    <nav>
+      <ul id="navMenu">
+        <li><a href="/#ai-security-leader">about</a></li>
+        <li><a href="/#ai-security-expertise">expertise</a></li>
+        <li><a href="/#ai-security-experience">career</a></li>
+        <li><a href="/#ai-security-projects">projects</a></li>
+        <li><a href="/#ai-security-credentials">credentials</a></li>
+        <li><a href="/blog/" class="active">blog</a></li>
+        <li><a href="/#ai-security-contact" class="nav-cta">connect</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="snap-section" style="padding-top:160px" aria-labelledby="blog-listing-heading">
+  <div class="container">
+    <div class="blog-listing-header">
+      <div class="section-label">Blog</div>
+      <h1 class="section-heading" id="blog-listing-heading">Thoughts on AI Security &amp; Governance</h1>
+      <p class="section-sub">Lessons from the trenches &mdash; AI risk, LLM defense, board-level security strategy, and building security tools in the open.</p>
+    </div>
+
+    <div class="blog-year-filter" id="blogFilters"></div>
+    <p id="blogCount" style="font-family:var(--mono);font-size:11px;color:var(--text-muted);letter-spacing:.06em;margin-bottom:32px;text-transform:uppercase"></p>
+
+    <div class="blog-grid" id="blogGrid">
+      <!-- JS-rendered from posts.json -->
+      <noscript>
+        <ul style="list-style:none;padding:0">
+          <li style="margin-bottom:16px"><a href="/blog/2026/ai-governance-failing.html" style="color:var(--gold)">Why Your AI Governance Program Is Failing</a> <span style="color:var(--text-muted);font-size:13px">&mdash; Apr 2026</span></li>
+          <li style="margin-bottom:16px"><a href="/blog/2026/prompt-injection-architecture.html" style="color:var(--gold)">Prompt Injection Is Not a Bug</a> <span style="color:var(--text-muted);font-size:13px">&mdash; Mar 2026</span></li>
+          <li style="margin-bottom:16px"><a href="/blog/2026/open-source-appsec-pipeline.html" style="color:var(--gold)">How We Reduced Late-Stage Vulns by 96%</a> <span style="color:var(--text-muted);font-size:13px">&mdash; Feb 2026</span></li>
+        </ul>
+      </noscript>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <p>&copy; 2026 Dr. Devam R Shah &middot; Securing AI systems &middot; Governing AI risk &middot; Built in the open</p>
+    </div>
+  </div>
+</footer>
+
+<script defer src="blog-listing.js"></script>
+</body>
+</html>

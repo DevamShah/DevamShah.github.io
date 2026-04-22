@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
+  <meta name="theme-color" content="#070b17">
+  <meta name="color-scheme" content="dark">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://plausible.io; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://plausible.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <title>How We Reduced Late-Stage Vulnerabilities by 96% — Dr. Devam R Shah</title>
+  <meta name="description" content="Enterprise AppSec doesn't require enterprise licensing. Here's the open-source pipeline that outperformed six-figure commercial tools at Locus.">
+  <meta name="author" content="Dr. Devam R Shah">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://devamshah.github.io/blog/2026/open-source-appsec-pipeline.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23eab84e'/%3E%3Cstop offset='1' stop-color='%23a37d38'/%3E%3C/linearGradient%3E%3ClinearGradient id='h' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.12'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%230a0f22'/%3E%3Cpath d='M32 6L12 16v16c0 14 8.5 22.5 20 26c11.5-3.5 20-12 20-26V16Z' fill='url(%23g)'/%3E%3Cpath d='M32 6L12 16v16c0 14 8.5 22.5 20 26c11.5-3.5 20-12 20-26V16Z' fill='url(%23h)'/%3E%3Cpath d='M24 20h10c7 0 12 5 12 12s-5 12-12 12H24Z' fill='%230a0f22'/%3E%3Cpath d='M30 26h4c3.3 0 6 2.7 6 6s-2.7 6-6 6h-4Z' fill='url(%23g)'/%3E%3C/svg%3E">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Dr. Devam R Shah">
+  <meta property="og:url" content="https://devamshah.github.io/blog/2026/open-source-appsec-pipeline.html">
+  <meta property="og:title" content="How We Reduced Late-Stage Vulnerabilities by 96% With Open-Source Tooling">
+  <meta property="og:description" content="Enterprise AppSec doesn't require enterprise licensing. Here's the open-source pipeline that outperformed six-figure commercial tools.">
+  <meta property="og:image" content="https://devamshah.github.io/assets/og-card.png">
+  <meta property="article:published_time" content="2026-02-18">
+  <meta property="article:author" content="https://devamshah.github.io/">
+  <meta property="article:tag" content="AppSec">
+  <meta property="article:tag" content="Open Source">
+  <meta property="article:tag" content="DevSecOps">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How We Reduced Late-Stage Vulnerabilities by 96%">
+  <meta name="twitter:description" content="Enterprise AppSec doesn't require enterprise licensing. Here's the open-source pipeline.">
+  <meta name="twitter:image" content="https://devamshah.github.io/assets/og-card.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":"How We Reduced Late-Stage Vulnerabilities by 96% With Open-Source Tooling","datePublished":"2026-02-18","dateModified":"2026-02-18","author":{"@id":"https://devamshah.github.io/#person"},"publisher":{"@id":"https://devamshah.github.io/#person"},"url":"https://devamshah.github.io/blog/2026/open-source-appsec-pipeline.html","description":"Enterprise AppSec doesn't require enterprise licensing. Here's the open-source pipeline that outperformed six-figure commercial tools at Locus.","keywords":["AppSec","Open Source","DevSecOps"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://devamshah.github.io/blog/2026/open-source-appsec-pipeline.html"}}
+  </script>
+
+  <!-- Analytics -->
+  <script defer data-domain="devamshah.github.io" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Preload critical fonts -->
+  <link rel="preload" as="font" type="font/woff2" href="../../fonts/outfit-var.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../../fonts/instrument-serif.woff2" crossorigin>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../../css/bundle.min.css">
+  <link rel="stylesheet" href="../blog-post.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header id="siteHeader">
+  <div class="container">
+    <a href="/" class="nav-brand">
+      <div class="nav-dot"></div>
+      <div class="nav-id">
+        <span class="slash">~/</span>dr.devam.r<span class="dot">.</span>shah
+        <span style="color:var(--text-muted);font-size:10px;margin-left:6px">chief information security officer &middot; ai security &amp; governance</span>
+      </div>
+    </a>
+    <nav>
+      <ul id="navMenu">
+        <li><a href="/#ai-security-leader">about</a></li>
+        <li><a href="/#ai-security-expertise">expertise</a></li>
+        <li><a href="/#ai-security-experience">career</a></li>
+        <li><a href="/#ai-security-projects">projects</a></li>
+        <li><a href="/#ai-security-credentials">credentials</a></li>
+        <li><a href="/blog/" class="active">blog</a></li>
+        <li><a href="/#ai-security-contact" class="nav-cta">connect</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article class="blog-post" style="padding:160px 0 100px">
+  <div class="container">
+    <a href="/blog/" class="blog-back">All Posts</a>
+
+    <div class="blog-post-header">
+      <div class="blog-meta">
+        <span class="blog-date">Feb 18, 2026</span>
+        <span class="blog-category">AppSec</span>
+        <span class="blog-reading-time">12 min read</span>
+      </div>
+      <h1>How We Reduced Late-Stage Vulnerabilities by 96% With Open-Source Tooling</h1>
+      <p class="blog-post-excerpt">Enterprise AppSec doesn't require enterprise licensing. Here's the open-source pipeline that outperformed six-figure commercial tools at Locus.</p>
+      <div class="blog-tags">
+        <span class="blog-tag">AppSec</span>
+        <span class="blog-tag">Open Source</span>
+        <span class="blog-tag">DevSecOps</span>
+      </div>
+    </div>
+
+    <div class="blog-post-content">
+      <p>When I joined Locus as CISO, the AppSec posture was typical for a fast-moving AI startup: no SAST, no SCA, no container scanning, no secrets detection. The engineering team was shipping multiple times a day with zero security gates. The vulnerability backlog was a fiction because nobody was counting.</p>
+
+      <p>I had two constraints: a $1M total security budget (not just AppSec &mdash; everything), and a five-person team. Enterprise AppSec platforms were out of the question. A single Snyk or Checkmarx license would consume a third of the budget before we'd secured anything else.</p>
+
+      <p>So we built it with open source. <strong>The result: 96% reduction in late-stage vulnerabilities within 8 months, zero enterprise licensing spend on AppSec.</strong></p>
+
+      <h2>The Pipeline</h2>
+
+      <p>Every PR triggers a parallel security scan across five dimensions. The scan completes in under 3 minutes. Developers get results in the PR itself, not in a separate dashboard they'll never check.</p>
+
+      <h3>1. SAST &mdash; Semgrep</h3>
+      <p>Semgrep runs custom rules tailored to our codebase. The key insight: <strong>generic rule sets produce 90% noise</strong>. We wrote ~40 custom rules targeting our specific patterns: our API framework, our auth middleware, our data access layer. These rules catch real bugs because they understand our code, not generic Python.</p>
+
+      <pre><code># Example: Detect raw SQL in our ORM layer
+rules:
+  - id: raw-sql-in-orm
+    pattern: db.execute($QUERY)
+    message: Use parameterized queries via ORM
+    severity: ERROR
+    metadata:
+      category: security
+      cwe: CWE-89</code></pre>
+
+      <p>False positive rate with custom rules: under 5%. With the default ruleset, it was over 60%.</p>
+
+      <h3>2. SCA &mdash; Trivy + OSV-Scanner</h3>
+      <p>Trivy scans dependencies in both application code and container images. OSV-Scanner provides a second opinion against the OSV database. We run both because no single SCA tool has complete vulnerability coverage.</p>
+
+      <p>The critical addition: <strong>reachability analysis</strong>. A vulnerable dependency that's never called is noise. We built a lightweight reachability check using call graph analysis that filters out ~40% of SCA findings that would otherwise require manual triage. This is what Verida (our open-source project) automates.</p>
+
+      <h3>3. Container Scanning &mdash; Trivy</h3>
+      <p>Every Docker image is scanned before it reaches the registry. We enforce a policy: <strong>no critical or high CVEs in base images</strong>. If the scan fails, the image doesn't push. This sounds aggressive, but in practice it means we update base images proactively rather than reactively.</p>
+
+      <h3>4. Secrets Detection &mdash; Gitleaks</h3>
+      <p>Gitleaks runs as a pre-commit hook and in CI. The pre-commit hook catches secrets before they enter the repository. The CI check catches anything the hook missed (developers can skip hooks locally).</p>
+
+      <p>We also run periodic full-history scans to find secrets committed before Gitleaks was deployed. Found 23 live credentials in the first scan. All rotated within 48 hours.</p>
+
+      <h3>5. DAST &mdash; OWASP ZAP</h3>
+      <p>ZAP runs nightly against our staging environment with authenticated scans. We maintain a custom scan policy that focuses on our API surface rather than running the full default scan (which takes 6 hours and produces mostly noise for an API-first platform).</p>
+
+      <h2>The Secret Weapon: AI-Assisted Triage</h2>
+
+      <p>Open-source tools find vulnerabilities. They also find an overwhelming number of false positives. The difference between a successful open-source AppSec program and an abandoned one is <strong>triage velocity</strong>.</p>
+
+      <p>We built an AI triage layer using Claude that automatically:</p>
+
+      <ul>
+        <li>Correlates findings across tools (the same issue flagged by Semgrep and ZAP gets deduplicated)</li>
+        <li>Assesses exploitability based on the specific code context</li>
+        <li>Suggests remediation with code snippets tailored to our codebase</li>
+        <li>Auto-closes findings that match known false positive patterns</li>
+      </ul>
+
+      <p>This reduced manual triage time by ~70%. A human still reviews every finding classified as high or critical, but the AI handles the long tail of low/medium findings that would otherwise pile up and get ignored.</p>
+
+      <h2>The Integration Architecture</h2>
+
+      <p>The pipeline runs in GitHub Actions. Results flow into a central findings database (PostgreSQL). A lightweight dashboard (Grafana) shows trends. But the primary interface is the PR itself:</p>
+
+      <ul>
+        <li><strong>Blocking findings</strong> (critical/high with confirmed reachability) fail the PR check</li>
+        <li><strong>Advisory findings</strong> (medium/low or unreachable) appear as PR comments</li>
+        <li><strong>Informational findings</strong> go to the dashboard only</li>
+      </ul>
+
+      <p>Developers never leave their workflow. They don't need a security dashboard account. They don't need to learn a new tool. The security feedback appears exactly where they're already working.</p>
+
+      <h2>The Numbers</h2>
+
+      <table>
+        <tr><th>Metric</th><th>Before</th><th>After (8 months)</th></tr>
+        <tr><td>Late-stage vulnerabilities (found in staging/prod)</td><td>~120/quarter</td><td>5/quarter</td></tr>
+        <tr><td>Mean time to remediation</td><td>45 days</td><td>3 days</td></tr>
+        <tr><td>False positive rate</td><td>N/A (no scanning)</td><td>&lt;5% (with custom rules)</td></tr>
+        <tr><td>AppSec tooling cost</td><td>$0</td><td>$0 (open source)</td></tr>
+        <tr><td>Developer friction complaints</td><td>0 (no gates)</td><td>~2/month (acceptable)</td></tr>
+      </table>
+
+      <h2>What I'd Do Differently</h2>
+
+      <p><strong>Start with custom rules from day one.</strong> We wasted six weeks running default rulesets, drowning in false positives, and losing developer trust. Custom rules should be the first investment, not an optimization.</p>
+
+      <p><strong>Don't block PRs immediately.</strong> We started in advisory mode for the first month. Developers saw the findings without being blocked. This built trust before we turned on enforcement. Going straight to blocking would have caused a revolt.</p>
+
+      <p><strong>Invest in reachability analysis early.</strong> The single biggest noise reducer in SCA is knowing whether the vulnerable code path is actually reachable. This alone cut our SCA noise by 40%.</p>
+
+      <blockquote><p>The best AppSec program isn't the one with the most expensive tools. It's the one developers actually use. Open-source tools with custom rules, integrated into the developer workflow, with AI-assisted triage &mdash; that's the stack that scales.</p></blockquote>
+
+      <hr>
+
+      <p>The entire pipeline configuration is being open-sourced as part of the Verida project. If you're building AppSec on a budget, check it out on <a href="https://github.com/DevamShah">GitHub</a>.</p>
+    </div>
+
+    <div class="blog-post-footer">
+      <img src="../../assets/website_headshot.webp" alt="Dr. Devam R Shah" class="blog-author-avatar" width="56" height="56">
+      <div class="blog-author-info">
+        <div class="blog-author-name">Dr. Devam R Shah</div>
+        <div class="blog-author-role">CISO & DPO | AI Security & AI Governance Leader</div>
+      </div>
+    </div>
+
+    <div class="blog-post-nav">
+      <a href="/blog/2026/prompt-injection-architecture.html">
+        <span class="nav-label">Previous Post</span>
+        <span class="nav-title">Prompt Injection Is Not a Bug</span>
+      </a>
+      <span></span>
+    </div>
+  </div>
+</article>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <p>&copy; 2026 Dr. Devam R Shah &middot; Securing AI systems &middot; Governing AI risk &middot; Built in the open</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

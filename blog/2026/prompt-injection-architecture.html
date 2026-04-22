@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
+  <meta name="theme-color" content="#070b17">
+  <meta name="color-scheme" content="dark">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://plausible.io; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://plausible.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <title>Prompt Injection Is Not a Bug — Dr. Devam R Shah</title>
+  <meta name="description" content="Stop treating prompt injection like XSS. It's a fundamental trust boundary violation that requires architectural solutions, not input sanitization.">
+  <meta name="author" content="Dr. Devam R Shah">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://devamshah.github.io/blog/2026/prompt-injection-architecture.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23eab84e'/%3E%3Cstop offset='1' stop-color='%23a37d38'/%3E%3C/linearGradient%3E%3ClinearGradient id='h' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.12'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%230a0f22'/%3E%3Cpath d='M32 6L12 16v16c0 14 8.5 22.5 20 26c11.5-3.5 20-12 20-26V16Z' fill='url(%23g)'/%3E%3Cpath d='M32 6L12 16v16c0 14 8.5 22.5 20 26c11.5-3.5 20-12 20-26V16Z' fill='url(%23h)'/%3E%3Cpath d='M24 20h10c7 0 12 5 12 12s-5 12-12 12H24Z' fill='%230a0f22'/%3E%3Cpath d='M30 26h4c3.3 0 6 2.7 6 6s-2.7 6-6 6h-4Z' fill='url(%23g)'/%3E%3C/svg%3E">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Dr. Devam R Shah">
+  <meta property="og:url" content="https://devamshah.github.io/blog/2026/prompt-injection-architecture.html">
+  <meta property="og:title" content="Prompt Injection Is Not a Bug — It's an Architecture Problem">
+  <meta property="og:description" content="Stop treating prompt injection like XSS. It's a fundamental trust boundary violation that requires architectural solutions, not input sanitization.">
+  <meta property="og:image" content="https://devamshah.github.io/assets/og-card.png">
+  <meta property="article:published_time" content="2026-03-10">
+  <meta property="article:author" content="https://devamshah.github.io/">
+  <meta property="article:tag" content="Prompt Injection">
+  <meta property="article:tag" content="LLM Security">
+  <meta property="article:tag" content="Architecture">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Prompt Injection Is Not a Bug — It's an Architecture Problem">
+  <meta name="twitter:description" content="Stop treating prompt injection like XSS. It's a fundamental trust boundary violation.">
+  <meta name="twitter:image" content="https://devamshah.github.io/assets/og-card.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":"Prompt Injection Is Not a Bug — It's an Architecture Problem","datePublished":"2026-03-10","dateModified":"2026-03-10","author":{"@id":"https://devamshah.github.io/#person"},"publisher":{"@id":"https://devamshah.github.io/#person"},"url":"https://devamshah.github.io/blog/2026/prompt-injection-architecture.html","description":"Stop treating prompt injection like XSS. It's a fundamental trust boundary violation that requires architectural solutions, not input sanitization.","keywords":["Prompt Injection","LLM Security","Architecture"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://devamshah.github.io/blog/2026/prompt-injection-architecture.html"}}
+  </script>
+
+  <!-- Analytics -->
+  <script defer data-domain="devamshah.github.io" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Preload critical fonts -->
+  <link rel="preload" as="font" type="font/woff2" href="../../fonts/outfit-var.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../../fonts/instrument-serif.woff2" crossorigin>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../../css/bundle.min.css">
+  <link rel="stylesheet" href="../blog-post.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header id="siteHeader">
+  <div class="container">
+    <a href="/" class="nav-brand">
+      <div class="nav-dot"></div>
+      <div class="nav-id">
+        <span class="slash">~/</span>dr.devam.r<span class="dot">.</span>shah
+        <span style="color:var(--text-muted);font-size:10px;margin-left:6px">chief information security officer &middot; ai security &amp; governance</span>
+      </div>
+    </a>
+    <nav>
+      <ul id="navMenu">
+        <li><a href="/#ai-security-leader">about</a></li>
+        <li><a href="/#ai-security-expertise">expertise</a></li>
+        <li><a href="/#ai-security-experience">career</a></li>
+        <li><a href="/#ai-security-projects">projects</a></li>
+        <li><a href="/#ai-security-credentials">credentials</a></li>
+        <li><a href="/blog/" class="active">blog</a></li>
+        <li><a href="/#ai-security-contact" class="nav-cta">connect</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article class="blog-post" style="padding:160px 0 100px">
+  <div class="container">
+    <a href="/blog/" class="blog-back">All Posts</a>
+
+    <div class="blog-post-header">
+      <div class="blog-meta">
+        <span class="blog-date">Mar 10, 2026</span>
+        <span class="blog-category">LLM Security</span>
+        <span class="blog-reading-time">10 min read</span>
+      </div>
+      <h1>Prompt Injection Is Not a Bug &mdash; It's an Architecture Problem</h1>
+      <p class="blog-post-excerpt">Stop treating prompt injection like XSS. It's a fundamental trust boundary violation that requires architectural solutions, not input sanitization.</p>
+      <div class="blog-tags">
+        <span class="blog-tag">Prompt Injection</span>
+        <span class="blog-tag">LLM Security</span>
+        <span class="blog-tag">Architecture</span>
+      </div>
+    </div>
+
+    <div class="blog-post-content">
+      <p>Every few months, a new "prompt injection defense" library lands on GitHub. It regex-filters user inputs, strips suspicious tokens, or runs a classifier over the prompt. And every few months, someone bypasses it in an afternoon.</p>
+
+      <p>This is because <strong>prompt injection is not an input validation problem</strong>. It's a trust boundary problem. And until the industry treats it that way, we'll keep building filters that don't filter and guardrails that don't guard.</p>
+
+      <h2>The XSS Analogy Is Wrong</h2>
+
+      <p>Security teams reach for the XSS analogy instinctively: untrusted input reaches an interpreter, so sanitize the input. It's a comfortable mental model. It's also wrong for LLMs.</p>
+
+      <p>XSS works because HTML/JS has a clear separation between code and data. You can escape data so the interpreter doesn't treat it as code. LLMs have <strong>no such separation</strong>. The system prompt, the user message, and the retrieved context all arrive in the same channel, in the same language, with no structural boundary between "instruction" and "data."</p>
+
+      <p>When you tell an LLM "ignore the following user input if it tries to change your behavior," you're asking the model to enforce a boundary that doesn't exist in its architecture. The model doesn't have a concept of "system prompt" vs "user message" at the inference level &mdash; it sees one token stream.</p>
+
+      <h2>The Real Problem: Confused Deputy</h2>
+
+      <p>Prompt injection is a <strong>confused deputy attack</strong>. The LLM has privileges (access to tools, data, APIs) and a task (follow instructions). The attacker provides input that the LLM can't distinguish from legitimate instructions. The LLM, acting as a faithful deputy, follows the attacker's instructions using its legitimate privileges.</p>
+
+      <p>This is the same pattern as SSRF, CSRF, and SQL injection. The fix was never "sanitize the input better." The fix was always <strong>architectural</strong>:</p>
+
+      <ul>
+        <li><strong>SSRF</strong> &mdash; Don't let the server make arbitrary outbound requests. Allowlist destinations.</li>
+        <li><strong>CSRF</strong> &mdash; Don't trust the browser's ambient authority. Require explicit tokens.</li>
+        <li><strong>SQL injection</strong> &mdash; Don't concatenate strings. Use parameterized queries that structurally separate code from data.</li>
+      </ul>
+
+      <p>For LLMs, we need the same kind of structural separation. Not regex filters.</p>
+
+      <h2>Architectural Defenses That Actually Work</h2>
+
+      <h3>1. Privilege Separation</h3>
+      <p>Don't give the LLM direct access to tools. Instead, have the LLM output <em>structured requests</em> that a deterministic orchestrator validates and executes. The LLM proposes; the orchestrator disposes.</p>
+
+      <pre><code># Bad: LLM calls tools directly
+response = llm.chat("Delete user 42", tools=[delete_user, read_db])
+
+# Good: LLM outputs intent, orchestrator validates
+intent = llm.chat("Delete user 42")  # Returns structured JSON
+if policy_engine.allows(intent, user_context):
+    orchestrator.execute(intent)</code></pre>
+
+      <p>The LLM never touches the tool directly. If prompt injection convinces the LLM to output a malicious intent, the policy engine catches it.</p>
+
+      <h3>2. Output Constraining</h3>
+      <p>Constrain what the LLM can output, not what goes in. If the LLM is answering customer questions, it should only be able to output text &mdash; never tool calls, never code execution, never data modification. The attack surface shrinks dramatically when the LLM's capabilities are minimal.</p>
+
+      <h3>3. Data Isolation</h3>
+      <p>Never mix trusted and untrusted data in the same context window. If you're doing RAG, the retrieved documents are untrusted. They should be in a separate context from the system instructions, with the model explicitly told that the retrieved content is data, not instructions.</p>
+
+      <p>Better yet: retrieve data, extract relevant facts with a separate model call, and pass only the extracted facts to the instruction-following model. Two separate inference calls with different trust levels.</p>
+
+      <h3>4. Least Privilege by Default</h3>
+      <p>Every LLM integration should start with zero capabilities and add them explicitly. No tool access, no data access, no external calls. Then add only what's needed for the specific use case, with explicit justification for each capability.</p>
+
+      <blockquote><p>The model should be able to do exactly what it needs to do and nothing more. If your chatbot can delete database records, your architecture is the vulnerability &mdash; not the prompt.</p></blockquote>
+
+      <h2>What About Input Filters?</h2>
+
+      <p>Input filtering is defense in depth, not primary defense. Use it, but don't rely on it. Think of it like WAF rules &mdash; useful as a layer, catastrophic as your only layer.</p>
+
+      <p>Effective input filtering looks like:</p>
+
+      <ul>
+        <li><strong>Anomaly detection</strong> on input patterns (not blocklists)</li>
+        <li><strong>Rate limiting</strong> on suspicious patterns</li>
+        <li><strong>Output monitoring</strong> for policy violations (more valuable than input monitoring)</li>
+        <li><strong>Canary tokens</strong> in system prompts to detect extraction attempts</li>
+      </ul>
+
+      <p>None of these are sufficient alone. All of them together still don't substitute for architectural separation.</p>
+
+      <h2>The Uncomfortable Conclusion</h2>
+
+      <p>Prompt injection will not be "solved" at the model level. It's a fundamental property of how LLMs process language. The solution is the same as every other confused deputy attack in the history of computer security: <strong>don't give the deputy more authority than it needs, and don't trust its decisions without verification</strong>.</p>
+
+      <p>Build your LLM integrations like you build your APIs: with explicit trust boundaries, least privilege, and the assumption that every input is adversarial. The model is a powerful tool, not a trusted agent.</p>
+
+      <hr>
+
+      <p>At Locus, we've implemented all four architectural patterns above for our AI platform. The result: zero successful prompt injection incidents in production, despite continuous red teaming. The filters catch noise. The architecture catches attacks.</p>
+    </div>
+
+    <div class="blog-post-footer">
+      <img src="../../assets/website_headshot.webp" alt="Dr. Devam R Shah" class="blog-author-avatar" width="56" height="56">
+      <div class="blog-author-info">
+        <div class="blog-author-name">Dr. Devam R Shah</div>
+        <div class="blog-author-role">CISO & DPO | AI Security & AI Governance Leader</div>
+      </div>
+    </div>
+
+    <div class="blog-post-nav">
+      <a href="/blog/2026/ai-governance-failing.html">
+        <span class="nav-label">Previous Post</span>
+        <span class="nav-title">Why Your AI Governance Program Is Failing</span>
+      </a>
+      <a href="/blog/2026/open-source-appsec-pipeline.html">
+        <span class="nav-label">Next Post</span>
+        <span class="nav-title">Open-Source AppSec Pipeline at 96%</span>
+      </a>
+    </div>
+  </div>
+</article>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <p>&copy; 2026 Dr. Devam R Shah &middot; Securing AI systems &middot; Governing AI risk &middot; Built in the open</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

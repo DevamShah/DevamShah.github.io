@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "ai-governance-failing",
+    "title": "Why Your AI Governance Program Is Failing \u2014 And What to Fix First",
+    "date": "2026-04-15",
+    "year": 2026,
+    "category": "AI Governance",
+    "excerpt": "Most enterprises treat AI governance as a checkbox exercise. After building AI governance programs across three companies, here's what actually works \u2014 and what's theater.",
+    "tags": ["AI Governance", "NIST AI RMF", "ISO 42001"],
+    "url": "/blog/2026/ai-governance-failing.html"
+  },
+  {
+    "slug": "prompt-injection-architecture",
+    "title": "Prompt Injection Is Not a Bug \u2014 It's an Architecture Problem",
+    "date": "2026-03-10",
+    "year": 2026,
+    "category": "LLM Security",
+    "excerpt": "Stop treating prompt injection like XSS. It's a fundamental trust boundary violation that requires architectural solutions, not input sanitization.",
+    "tags": ["Prompt Injection", "LLM Security", "Architecture"],
+    "url": "/blog/2026/prompt-injection-architecture.html"
+  },
+  {
+    "slug": "open-source-appsec-pipeline",
+    "title": "How We Reduced Late-Stage Vulnerabilities by 96% With Open-Source Tooling",
+    "date": "2026-02-18",
+    "year": 2026,
+    "category": "AppSec",
+    "excerpt": "Enterprise AppSec doesn't require enterprise licensing. Here's the open-source pipeline that outperformed six-figure commercial tools at Locus.",
+    "tags": ["AppSec", "Open Source", "DevSecOps"],
+    "url": "/blog/2026/open-source-appsec-pipeline.html"
+  }
+]

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
+  <meta name="theme-color" content="#070b17">
+  <meta name="color-scheme" content="dark">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://plausible.io; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://plausible.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <title>Why Your AI Governance Program Is Failing — Dr. Devam R Shah</title>
+  <meta name="description" content="Most enterprises treat AI governance as a checkbox exercise. After building AI governance programs across three companies, here's what actually works — and what's theater.">
+  <meta name="author" content="Dr. Devam R Shah">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://devamshah.github.io/blog/2026/ai-governance-failing.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23eab84e'/%3E%3Cstop offset='1' stop-color='%23a37d38'/%3E%3C/linearGradient%3E%3ClinearGradient id='h' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.12'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%230a0f22'/%3E%3Cpath d='M32 6L12 16v16c0 14 8.5 22.5 20 26c11.5-3.5 20-12 20-26V16Z' fill='url(%23g)'/%3E%3Cpath d='M32 6L12 16v16c0 14 8.5 22.5 20 26c11.5-3.5 20-12 20-26V16Z' fill='url(%23h)'/%3E%3Cpath d='M24 20h10c7 0 12 5 12 12s-5 12-12 12H24Z' fill='%230a0f22'/%3E%3Cpath d='M30 26h4c3.3 0 6 2.7 6 6s-2.7 6-6 6h-4Z' fill='url(%23g)'/%3E%3C/svg%3E">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Dr. Devam R Shah">
+  <meta property="og:url" content="https://devamshah.github.io/blog/2026/ai-governance-failing.html">
+  <meta property="og:title" content="Why Your AI Governance Program Is Failing — And What to Fix First">
+  <meta property="og:description" content="Most enterprises treat AI governance as a checkbox exercise. After building AI governance programs across three companies, here's what actually works — and what's theater.">
+  <meta property="og:image" content="https://devamshah.github.io/assets/og-card.png">
+  <meta property="article:published_time" content="2026-04-15">
+  <meta property="article:author" content="https://devamshah.github.io/">
+  <meta property="article:tag" content="AI Governance">
+  <meta property="article:tag" content="NIST AI RMF">
+  <meta property="article:tag" content="ISO 42001">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why Your AI Governance Program Is Failing — And What to Fix First">
+  <meta name="twitter:description" content="Most enterprises treat AI governance as a checkbox exercise. Here's what actually works.">
+  <meta name="twitter:image" content="https://devamshah.github.io/assets/og-card.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":"Why Your AI Governance Program Is Failing — And What to Fix First","datePublished":"2026-04-15","dateModified":"2026-04-15","author":{"@id":"https://devamshah.github.io/#person"},"publisher":{"@id":"https://devamshah.github.io/#person"},"url":"https://devamshah.github.io/blog/2026/ai-governance-failing.html","description":"Most enterprises treat AI governance as a checkbox exercise. After building AI governance programs across three companies, here's what actually works — and what's theater.","keywords":["AI Governance","NIST AI RMF","ISO 42001"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://devamshah.github.io/blog/2026/ai-governance-failing.html"}}
+  </script>
+
+  <!-- Analytics -->
+  <script defer data-domain="devamshah.github.io" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Preload critical fonts -->
+  <link rel="preload" as="font" type="font/woff2" href="../../fonts/outfit-var.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../../fonts/instrument-serif.woff2" crossorigin>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../../css/bundle.min.css">
+  <link rel="stylesheet" href="../blog-post.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- ===== HEADER ===== -->
+<header id="siteHeader">
+  <div class="container">
+    <a href="/" class="nav-brand">
+      <div class="nav-dot"></div>
+      <div class="nav-id">
+        <span class="slash">~/</span>dr.devam.r<span class="dot">.</span>shah
+        <span style="color:var(--text-muted);font-size:10px;margin-left:6px">chief information security officer &middot; ai security &amp; governance</span>
+      </div>
+    </a>
+    <nav>
+      <ul id="navMenu">
+        <li><a href="/#ai-security-leader">about</a></li>
+        <li><a href="/#ai-security-expertise">expertise</a></li>
+        <li><a href="/#ai-security-experience">career</a></li>
+        <li><a href="/#ai-security-projects">projects</a></li>
+        <li><a href="/#ai-security-credentials">credentials</a></li>
+        <li><a href="/blog/" class="active">blog</a></li>
+        <li><a href="/#ai-security-contact" class="nav-cta">connect</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article class="blog-post" style="padding:160px 0 100px">
+  <div class="container">
+    <a href="/blog/" class="blog-back">All Posts</a>
+
+    <div class="blog-post-header">
+      <div class="blog-meta">
+        <span class="blog-date">Apr 15, 2026</span>
+        <span class="blog-category">AI Governance</span>
+        <span class="blog-reading-time">8 min read</span>
+      </div>
+      <h1>Why Your AI Governance Program Is Failing &mdash; And What to Fix First</h1>
+      <p class="blog-post-excerpt">Most enterprises treat AI governance as a checkbox exercise. After building AI governance programs across three companies, here's what actually works &mdash; and what's theater.</p>
+      <div class="blog-tags">
+        <span class="blog-tag">AI Governance</span>
+        <span class="blog-tag">NIST AI RMF</span>
+        <span class="blog-tag">ISO 42001</span>
+      </div>
+    </div>
+
+    <div class="blog-post-content">
+      <p>I've built AI governance programs at three companies now. Each time, I inherited the same failure pattern: a governance "framework" that existed on paper but had zero enforcement, zero measurement, and zero developer buy-in. The board got a deck. Legal got a policy. Engineering got nothing useful.</p>
+
+      <p>Here's the uncomfortable truth: <strong>most AI governance programs are compliance theater</strong>. They satisfy auditors without changing how AI systems are actually built, deployed, or monitored.</p>
+
+      <h2>The Five Failure Modes</h2>
+
+      <h3>1. Policy Without Enforcement</h3>
+      <p>You wrote an "Acceptable Use of AI" policy. It's 14 pages. It lives in Confluence. Nobody reads it. Developers use ChatGPT to generate production code anyway. The policy exists to satisfy the audit, not to change behavior.</p>
+
+      <p><strong>The fix:</strong> Policies must be operationalized as technical controls. If your policy says "no PII in LLM prompts," your pipeline must have automated PII redaction at the API gateway. If your policy says "human-in-the-loop for high-risk decisions," your system must enforce approval workflows. A policy without a control is a suggestion.</p>
+
+      <h3>2. No Model Inventory</h3>
+      <p>You can't govern what you can't see. Most organizations have no idea how many AI models are in production, what data they were trained on, or who owns them. Shadow AI is the new shadow IT, but with higher stakes.</p>
+
+      <p><strong>The fix:</strong> Build an AI model registry. Every model in production gets an entry: owner, training data lineage, risk classification, last review date, incident history. This isn't optional &mdash; it's the foundation everything else depends on. Without it, your governance program is governing nothing.</p>
+
+      <h3>3. Risk Assessment as a One-Time Event</h3>
+      <p>You ran an AI DPIA when the model was deployed. That was 18 months ago. The model has been fine-tuned three times since then. The training data has changed. The use case has expanded. Your risk assessment is stale.</p>
+
+      <p><strong>The fix:</strong> AI risk assessments must be continuous, not point-in-time. Trigger reassessment on model updates, data pipeline changes, use case expansion, and regulatory changes. Automate drift detection. Build reassessment into your CI/CD pipeline.</p>
+
+      <h3>4. Treating AI Risk as Technical Risk</h3>
+      <p>AI risk is business risk. Prompt injection isn't a security finding &mdash; it's a trust boundary violation that can lead to data exfiltration, reputational damage, and regulatory action. Model bias isn't a fairness concern &mdash; it's a litigation vector. If your AI risk register lives in Jira with severity labels, you're thinking about it wrong.</p>
+
+      <p><strong>The fix:</strong> Translate AI risk into business impact language. Map each risk to revenue impact, regulatory exposure, and reputational cost. Present it to the board that way. The CISO who says "we have 47 high-severity prompt injection findings" gets a polite nod. The CISO who says "we have uncontrolled exposure in our customer-facing AI that could trigger GDPR Article 22 enforcement" gets budget.</p>
+
+      <h3>5. No Incident Response for AI</h3>
+      <p>Your incident response plan covers data breaches, ransomware, and DDoS. Does it cover model poisoning? Adversarial inputs? A hallucinating model giving medical advice? A jailbroken chatbot leaking training data?</p>
+
+      <p><strong>The fix:</strong> Build an AI incident response playbook. Define what constitutes an AI incident. Establish severity criteria specific to AI (model confidence degradation, output drift, adversarial exploitation). Assign roles. Run tabletop exercises. Your first AI incident should not be the first time you think about AI incident response.</p>
+
+      <h2>What Actually Works</h2>
+
+      <p>After three implementations, here's the pattern that produces real governance:</p>
+
+      <ol>
+        <li><strong>Start with the model inventory.</strong> You can't govern what you can't see.</li>
+        <li><strong>Classify risk by use case, not by technology.</strong> A recommendation engine and an autonomous decision-maker have fundamentally different risk profiles.</li>
+        <li><strong>Operationalize every policy as a technical control.</strong> If it can't be automated, it won't be followed.</li>
+        <li><strong>Make governance a developer experience problem.</strong> Build guardrails into the tools developers already use. Don't ask them to fill out a form &mdash; build the form into the PR template.</li>
+        <li><strong>Report to the board in business language.</strong> Revenue impact, regulatory exposure, competitive risk. Never severity counts.</li>
+      </ol>
+
+      <blockquote><p>The best AI governance is invisible to developers and visible to the board. It prevents the incident from ever existing.</p></blockquote>
+
+      <h2>The Framework That Scales</h2>
+
+      <p>At Locus, we aligned to <strong>NIST AI RMF</strong> for risk management and <strong>ISO/IEC 42001</strong> for the management system. The EU AI Act gave us the regulatory forcing function. But the framework doesn't matter as much as the execution. I've seen perfect NIST AI RMF mappings that produced zero risk reduction, and scrappy programs with no formal framework that caught real issues.</p>
+
+      <p>The difference is always the same: <strong>does the governance program change how AI systems are actually built?</strong> If the answer is no, you have a document. If the answer is yes, you have governance.</p>
+
+      <hr>
+
+      <p>If you're building an AI governance program and want to skip the first 12 months of mistakes, reach out. I've made them all so you don't have to.</p>
+    </div>
+
+    <div class="blog-post-footer">
+      <img src="../../assets/website_headshot.webp" alt="Dr. Devam R Shah" class="blog-author-avatar" width="56" height="56">
+      <div class="blog-author-info">
+        <div class="blog-author-name">Dr. Devam R Shah</div>
+        <div class="blog-author-role">CISO & DPO | AI Security & AI Governance Leader</div>
+      </div>
+    </div>
+
+    <div class="blog-post-nav">
+      <span></span>
+      <a href="/blog/2026/prompt-injection-architecture.html">
+        <span class="nav-label">Next Post</span>
+        <span class="nav-title">Prompt Injection Is Not a Bug</span>
+      </a>
+    </div>
+  </div>
+</article>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <p>&copy; 2026 Dr. Devam R Shah &middot; Securing AI systems &middot; Governing AI risk &middot; Built in the open</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

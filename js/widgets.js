@@ -11,6 +11,7 @@
     e: '#ai-security-expertise',
     c: '#ai-security-experience',
     p: '#ai-security-projects',
+    b: '#ai-security-blog',
     k: '#ai-security-contact'
   };
 

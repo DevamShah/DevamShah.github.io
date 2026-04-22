@@ -21,3 +21,4 @@ SEO-REWRITE-SPEC.md
 
 # Source files for generated assets
 assets/og-card.svg
+.wrangler/
